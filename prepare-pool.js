@@ -1,4 +1,5 @@
 const ChainUtil = require("./chain-util");
+const var_dump = require('var_dump')
 
 class PreparePool {
   // list object is mapping that holds a list of prepare messages for a hash of a block
@@ -34,6 +35,12 @@ class PreparePool {
 
   // checks if the prepare message already exists
   existingPrepare(prepare) {
+	  if(this.list == null){
+		  return false;
+	  }
+	  if(this.list.length==0){
+		  return false;
+	  }
     let exists = this.list[prepare.blockHash].find(
       p => p.publicKey === prepare.publicKey
     );

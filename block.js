@@ -32,6 +32,7 @@ class Block {
         Signature   : ${this.signature}
         Sequence No : ${this.sequenceNo}`;
   }
+  
 
   // The first block by default will the genesis block
   // this function generates the genesis block with random values

@@ -1,8 +1,10 @@
 const Block = require("./block");
+const fs = require('fs');
 
 class BlockPool {
   constructor() {
     this.list = [];
+    fs.writeFileSync('chain.txt');
   }
 
   // check if the block exisits or not
@@ -15,6 +17,10 @@ class BlockPool {
   addBlock(block) {
     this.list.push(block);
     console.log("added block to pool");
+    fs.appendFile('chain.txt', block.timestamp+"\n", function (err) {
+    	  if (err) throw err;
+    	  console.log('added block to file');
+    	});
   }
 
   // returns the blcok for the given hash
