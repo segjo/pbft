@@ -35,6 +35,7 @@ class PreparePool {
 
   // checks if the prepare message already exists
   existingPrepare(prepare) {
+	  try{
 	  if(this.list == null){
 		  return false;
 	  }
@@ -45,6 +46,11 @@ class PreparePool {
       p => p.publicKey === prepare.publicKey
     );
     return exists;
+    }catch (err){
+        console.log(err);
+        return false;
+    }
+	  
   }
 
   // checks if the prepare message is valid or not

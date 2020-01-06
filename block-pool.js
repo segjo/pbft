@@ -1,10 +1,11 @@
 const Block = require("./block");
 const fs = require('fs');
+const var_dump = require('var_dump')
 
 class BlockPool {
   constructor() {
     this.list = [];
-    fs.writeFileSync('chain.txt');
+    fs.writeFileSync('chain-'+process.env.SECRET+'.txt');
   }
 
   // check if the block exisits or not
@@ -17,11 +18,21 @@ class BlockPool {
   addBlock(block) {
     this.list.push(block);
     console.log("added block to pool");
-    fs.appendFile('chain.txt', block.timestamp+"\n", function (err) {
+    var data =  `Block : 
+        Timestamp   : ${block.timestamp}
+        Last Hash   : ${block.lastHash}
+        Hash        : ${block.hash}
+        Data        : ${block.data}
+        proposer    : ${block.proposer}
+        Signature   : ${block.signature}
+        Sequence No : ${block.sequenceNo}`;
+    
+    fs.appendFile('chain-'+process.env.SECRET+'.txt', "\n"+data, function (err) {
     	  if (err) throw err;
     	  console.log('added block to file');
     	});
   }
+
 
   // returns the blcok for the given hash
   getBlock(hash) {
