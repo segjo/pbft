@@ -22,8 +22,7 @@ class Block {
   }
 
   // A function to print the block
-  static toString() {
-	  return "true";
+  toString() {
     return `Block - 
         Timestamp   : ${this.timestamp}
         Last Hash   : ${this.lastHash}

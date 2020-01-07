@@ -15,7 +15,8 @@ const HTTP_PORT = process.env.HTTP_PORT || 3001;
 
 // Instantiate all objects
 const app = express();
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const wallet = new Wallet(process.env.SECRET);
 const transactionPool = new TransactionPool();
@@ -48,8 +49,9 @@ app.get("/blocks", (req, res) => {
 
 // creates transactions for the sent data
 app.post("/transact", (req, res) => {
-  const { data } = req.body;
-  const transaction = wallet.createTransaction(data);
+//  const { data } = req.body;
+  const transaction = wallet.createTransaction(req.body);
+  //const transaction = wallet.createTransaction(data);
   p2pserver.broadcastTransaction(transaction);
   res.redirect("/transactions");
 });
