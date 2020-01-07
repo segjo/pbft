@@ -31,8 +31,22 @@ class BlockPool {
     	  if (err) throw err;
     	  console.log('added block to file');
     	});
+    
+    
+    //------------------------Fügt eine nachträtliche Modifikation in Block 20 ein--------------------------------
+    if(this.list.length==20){
+    	this.modifyTransactionData(block.lastHash);
+    }
+    //------------------------------------------------------------------------------------------------------------
   }
+  
 
+  modifyTransactionData(lastHash){
+	  console.log('Lese Block: '+lastHash);
+	  let block = this.getBlock(lastHash);
+	  console.log('Param to Modify: '+block.data[0].input.data.param1);
+	  block.data[0].input.data.param1 = "modifikation";
+  }
 
   // returns the blcok for the given hash
   getBlock(hash) {
