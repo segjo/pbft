@@ -1,6 +1,7 @@
 'use strict';
 var request = require('request');
 const var_dump = require('var_dump')
+const SHA256 = require("crypto-js/sha256");
 
 var url = 'http://localhost:3000/blocks';
 
@@ -19,11 +20,33 @@ request.get({
       checkChain(data);
     }
 });
-//In Block 20/21 befindet sich eine Modifikation
-function checkChain(data) {
-	for(var nr in data){
-	    console.log("Block:"+data[nr].hash);
-	    console.log("Berechneter Hash:"+data[nr].hash);
+//In Block 19 befindet sich eine Modifikation
+function checkChain(blocks) {
+	for(var nr in blocks){
+		let block=blocks[nr];
+		//Erstelle Block und Hash und vergleiche diesen
+		if(block.hash!="genesis-hash"){
+	    console.log("Block "+nr+":"+block.hash);
+	    let lastHash = block.lastHash;
+	    let timestamp = block.timestamp;
+		  let dataString = block.data;
+		  for(var x in block.data){
+			  if('input' in block.data[x]){
+				  if('data' in block.data[x].input){
+					  if('param1' in block.data[x].input.data){
+						  dataString += block.data[x].input.data.param1;
+					  } 
+				  }
+			  }
+		  }
+	    let berechneterhash=SHA256(JSON.stringify(`${timestamp}${lastHash}${dataString}`)).toString();
+	    console.log("Berechneter Hash:"+berechneterhash);
+	    
+	    if(berechneterhash!=blocks[nr].hash){
+	    	console.log("-----------------------------------------UNGLEICH---------------------------------------")
+	    }
+	    
+		}
 	    
 	}
 }
