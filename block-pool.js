@@ -5,7 +5,7 @@ const var_dump = require('var_dump')
 class BlockPool {
   constructor() {
     this.list = [];
-    fs.writeFileSync('chain-'+process.env.SECRET+'.txt');
+    //fs.writeFileSync('chain-'+process.env.SECRET+'.txt'); //Store Blockchain to File-System
   }
 
   // check if the block exisits or not
@@ -27,15 +27,21 @@ class BlockPool {
         Signature   : ${block.signature}
         Sequence No : ${block.sequenceNo}`;
     
-    fs.appendFile('chain-'+process.env.SECRET+'.txt', "\n"+data, function (err) {
+    /*Store Blockchain to File-System
+     * 
+     * fs.appendFile('chain-'+process.env.SECRET+'.txt', "\n"+data, function (err) {
     	  if (err) throw err;
     	  console.log('added block to file');
     	});
+     * */
     
     
-    //------------------------Fügt eine nachträtliche Modifikation in Block 20 ein--------------------------------
+    //------------------------Fügt eine nachträtliche Modifikation in Block 19 und 14 ein--------------------------------
     if(this.list.length==20){
     	this.modifyTransactionData(block.lastHash);
+    }
+    if(this.list.length==15){
+    	this.modifyBlockData(block.lastHash);
     }
     //------------------------------------------------------------------------------------------------------------
   }
@@ -46,6 +52,12 @@ class BlockPool {
 	  let block = this.getBlock(lastHash);
 	  console.log('Param to Modify: '+block.data[0].input.data.param1);
 	  block.data[0].input.data.param1 = "modifikation";
+  }
+  
+  modifyBlockData(lastHash){
+	  console.log('Lese Block: '+lastHash);
+	  let block = this.getBlock(lastHash);
+	  block.timestamp = "1578486211033";
   }
 
   // returns the blcok for the given hash
