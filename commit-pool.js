@@ -10,6 +10,12 @@ class CommitPool {
   // and adds the commit message for the current node and
   // returns it
   commit(prepare, wallet) {
+	  
+		 if(this.list.length>10){
+			 console.log("commit-pool (prepare) >10");
+			 process.exit(1);
+		 } 
+		 
     let commit = this.createCommit(prepare, wallet);
     this.list[prepare.blockHash] = [];
     this.list[prepare.blockHash].push(commit);
@@ -44,6 +50,10 @@ class CommitPool {
 
   // pushes the commit message for a block hash into the list
   addCommit(commit) {
+		 if(this.list.length>10){
+			 console.log("commit-pool (commit) >10");
+			 process.exit(1);
+		 } 
     this.list[commit.blockHash].push(commit);
   }
 }

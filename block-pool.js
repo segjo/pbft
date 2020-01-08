@@ -16,6 +16,7 @@ class BlockPool {
 
   // pushes block to the chain
   addBlock(block) {
+	  
     this.list.push(block);
     console.log("added block to pool");
     var data =  `Block : 

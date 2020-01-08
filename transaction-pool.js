@@ -14,6 +14,10 @@ class TransactionPool {
   // returns true if it is full
   // else returns false
   addTransaction(transaction) {
+		 if(this.transactions.length>10){
+			 console.log("transaction-pool >10");
+			 process.exit(1);
+		 } 
     this.transactions.push(transaction);
     if (this.transactions.length >= TRANSACTION_THRESHOLD) {
       return true;

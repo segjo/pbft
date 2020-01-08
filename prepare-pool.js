@@ -11,9 +11,14 @@ class PreparePool {
   // and adds the prepare message for the current node and
   // returns it
   prepare(block, wallet) {
+
     let prepare = this.createPrepare(block, wallet);
     this.list[block.hash] = [];
     this.list[block.hash].push(prepare);
+	 if(this.list.length>10){
+		 console.log("prepare-pool >10");
+		 process.exit(1);
+	 } 
     return prepare;
   }
 
@@ -30,7 +35,12 @@ class PreparePool {
 
   // pushes the prepare message for a block hash into the list
   addPrepare(prepare) {
+	  try{
     this.list[prepare.blockHash].push(prepare);
+	  }catch (err){
+	        console.log(err);
+	        return false;
+	    }
   }
 
   // checks if the prepare message already exists

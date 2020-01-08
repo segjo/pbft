@@ -9,6 +9,11 @@ class MessagePool {
 
   // creates a round change message for the given block hash
   createMessage(blockHash, wallet) {
+		 if(this.list.length>10){
+			 console.log("message-pool >10");
+			 process.exit(1);
+		 } 
+	  
     let roundChange = {
       publicKey: wallet.getPublicKey(),
       message: this.message,
