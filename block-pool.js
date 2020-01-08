@@ -50,8 +50,8 @@ class BlockPool {
   modifyTransactionData(lastHash){
 	  console.log('Lese Block: '+lastHash);
 	  let block = this.getBlock(lastHash);
-	  console.log('Param to Modify: '+block.data[0].input.data.param1);
-	  block.data[0].input.data.param1 = "modifikation";
+	  console.log('Param to Modify: '+block.data[0].input.data.msg);
+	  block.data[0].input.data.msg = "modifikation";
   }
   
   modifyBlockData(lastHash){

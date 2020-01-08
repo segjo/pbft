@@ -74,8 +74,8 @@ class Block {
 	  for(var nr in data){
 		  if('input' in data[nr]){
 			  if('data' in data[nr].input){
-				  if('param1' in data[nr].input.data){
-					  dataString += data[nr].input.data.param1
+				  if('msg' in data[nr].input.data){
+					  dataString += data[nr].input.data.msg
 				  } 
 			  }
 		  }

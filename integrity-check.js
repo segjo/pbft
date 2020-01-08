@@ -33,8 +33,8 @@ function checkChain(blocks) {
 		  for(var x in block.data){
 			  if('input' in block.data[x]){
 				  if('data' in block.data[x].input){
-					  if('param1' in block.data[x].input.data){
-						  dataString += block.data[x].input.data.param1;
+					  if('msg' in block.data[x].input.data){
+						  dataString += block.data[x].input.data.msg;
 					  } 
 				  }
 			  }
