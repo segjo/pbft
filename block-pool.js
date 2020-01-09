@@ -1,6 +1,7 @@
 const Block = require("./block");
 const fs = require('fs');
 const var_dump = require('var_dump')
+var sequenceNo = 1;
 
 class BlockPool {
   constructor() {
@@ -16,8 +17,11 @@ class BlockPool {
 
   // pushes block to the chain
   addBlock(block) {
-	  
+	 //Prüfe ob Block (Seq. Nr.) bereits existiert
+	  console.log("Block:"+block.sequenceNo+" Chain:"+sequenceNo);
+	if(sequenceNo==block.sequenceNo){  
     this.list.push(block);
+    
     console.log("added block to pool");
     var data =  `Block : 
         Timestamp   : ${block.timestamp}
@@ -37,14 +41,23 @@ class BlockPool {
      * */
     
     
-    //------------------------Fügt eine nachträtliche Modifikation in Block 19 und 14 ein--------------------------------
+    //------------------------Fügt eine nachträtliche Modifikation in Block 11, 14 und 19 ein--------------------------------
     if(this.list.length==20){
     	this.modifyTransactionData(block.lastHash);
     }
     if(this.list.length==15){
     	this.modifyBlockData(block.lastHash);
     }
+    
+    if(this.list.length==12){
+    	this.modifyBlockDataAndHash(block.lastHash);
+    }
     //------------------------------------------------------------------------------------------------------------
+    sequenceNo++;
+	}else{
+		console.log("DOUBLICATE SEQ DETECTED:"+sequenceNo);
+	}
+    
   }
   
 
@@ -59,6 +72,15 @@ class BlockPool {
 	  console.log('Lese Block: '+lastHash);
 	  let block = this.getBlock(lastHash);
 	  block.timestamp = "1578486211033";
+  }
+  
+  modifyBlockDataAndHash(lastHash){
+	  console.log('Lese Block: '+lastHash);
+	  let block = this.getBlock(lastHash);
+	  block.timestamp = "1578486211033";
+	  block.hash = Block.hash(block.timestamp, block.lastHash, block.data);
+	  
+	  
   }
 
   // returns the blcok for the given hash
