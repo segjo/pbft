@@ -3,7 +3,7 @@ var request = require('request');
 const var_dump = require('var_dump')
 const SHA256 = require("crypto-js/sha256");
 
-var url = 'http://localhost:3000/blocks';
+var url = 'http://localhost:3002/blocks';
 
 request.get({
     url: url,
@@ -22,11 +22,12 @@ request.get({
 });
 //In Block 19 befindet sich eine Modifikation
 function checkChain(blocks) {
+	var prevHash;
 	for(var nr in blocks){
 		let block=blocks[nr];
 		//Erstelle Block und Hash und vergleiche diesen
 		if(block.hash!="genesis-hash"){
-	    console.log("Block "+nr+":"+block.hash);
+	    console.log("Block "+block.sequenceNo+" ("+nr+"):"+block.hash);
 	    let lastHash = block.lastHash;
 	    let timestamp = block.timestamp;
 		  let dataString = block.data;
@@ -41,11 +42,29 @@ function checkChain(blocks) {
 		  }
 	    let berechneterhash=SHA256(JSON.stringify(`${timestamp}${lastHash}${dataString}`)).toString();
 	    console.log("Berechneter Hash:"+berechneterhash);
+	    console.log("LastHash:"+block.lastHash);
+   
 	    
 	    if(berechneterhash!=blocks[nr].hash){
-	    	console.log("-----------------------------------------UNGLEICH---------------------------------------")
+	    	console.log("-----------------------------------------Modifikation erkannt (Block-Inhalt)---------------------------------------")
 	    }
 	    
+	  
+		    
+		    	if(prevHash!=lastHash){
+		    		console.log("Hash in vorherigen Block:"+prevHash);
+		    		console.log("-----------------------------------------Hash ungleich vorheriger Block---------------------------------------")
+		    	}
+		    	
+		    	
+		    	
+		    	
+		    
+		    	prevHash=block.hash;
+
+	    
+		}else{
+			prevHash=block.hash;
 		}
 	    
 	}
