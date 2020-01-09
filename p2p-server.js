@@ -216,6 +216,7 @@ class P2pserver {
           break;
         case MESSAGE_TYPE.prepare:
           // check if the prepare message is valid
+        	try{
           if (
             !this.preparePool.existingPrepare(data.prepare) &&
             this.preparePool.isValidPrepare(data.prepare, this.wallet) &&
@@ -237,6 +238,10 @@ class P2pserver {
               this.broadcastCommit(commit);
             }
           }
+        	}catch (err){
+                console.log(err);
+                return false;
+            }
           break;
         case MESSAGE_TYPE.commit:
           // check the validity commit messages

@@ -14,11 +14,16 @@ class PreparePool {
 
     let prepare = this.createPrepare(block, wallet);
     this.list[block.hash] = [];
+    try{
     this.list[block.hash].push(prepare);
 	 if(this.list.length>10){
 		 console.log("prepare-pool >10");
 		 process.exit(1);
 	 } 
+    }catch (err){
+        console.log(err);
+        return false;
+    }
     return prepare;
   }
 
