@@ -11,10 +11,6 @@ class CommitPool {
   // returns it
   commit(prepare, wallet) {
 	  
-		 if(this.list.length>10){
-			 console.log("commit-pool (prepare) >10");
-			 process.exit(1);
-		 } 
 		 
     let commit = this.createCommit(prepare, wallet);
     this.list[prepare.blockHash] = [];

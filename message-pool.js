@@ -9,14 +9,8 @@ class MessagePool {
 
   // creates a round change message for the given block hash
   createMessage(blockHash, wallet) {
-	  try{
-		 if(this.list.length>10){
-			 console.log("message-pool >10");
-			 process.exit(1);
-		 } }catch (err){
-		        console.log(err);
-		        return false;
-		    }
+
+	
 	  
     let roundChange = {
       publicKey: wallet.getPublicKey(),
@@ -31,7 +25,7 @@ class MessagePool {
 
   // checks if the message already exists
   existingMessage(message) {
-	  try{
+	
     if (this.list[message.blockHash]) {
       let exists = this.list[message.blockHash].find(
         p => p.publicKey === message.publicKey
@@ -40,10 +34,7 @@ class MessagePool {
     } else {
       return false;
     }
-  }catch (err){
-      console.log(err);
-      return false;
-  }
+
   }
 
   // checks if the message is valid or not
@@ -59,12 +50,9 @@ class MessagePool {
 
   // pushes the message for a block hash into the list
   addMessage(message) {
-	 try{ 
+	 
     this.list[message.blockHash].push(message);
-  }catch (err){
-      console.log(err);
-      return false;
-  }
+ 
   }
 }
 

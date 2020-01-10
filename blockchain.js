@@ -57,15 +57,12 @@ class Blockchain {
 
   // updates the block by appending the prepare and commit messages to the block
   addUpdatedBlock(hash, blockPool, preparePool, commitPool) {
-	  try{
+
     let block = blockPool.getBlock(hash);
     block.prepareMessages = preparePool.list[hash];
     block.commitMessages = commitPool.list[hash];
     this.addBlock(block);
-	  }catch (err){
-	        console.log(err);
-	        return false;
-	    }
+
   }
 }
 module.exports = Blockchain;

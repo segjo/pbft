@@ -14,16 +14,9 @@ class PreparePool {
 
     let prepare = this.createPrepare(block, wallet);
     this.list[block.hash] = [];
-    try{
+    
     this.list[block.hash].push(prepare);
-	 if(this.list.length>10){
-		 console.log("prepare-pool >10");
-		 process.exit(1);
-	 } 
-    }catch (err){
-        console.log(err);
-        return false;
-    }
+    
     return prepare;
   }
 
@@ -40,17 +33,14 @@ class PreparePool {
 
   // pushes the prepare message for a block hash into the list
   addPrepare(prepare) {
-	  try{
+	  
     this.list[prepare.blockHash].push(prepare);
-	  }catch (err){
-	        console.log(err);
-	        return false;
-	    }
+	
   }
 
   // checks if the prepare message already exists
   existingPrepare(prepare) {
-	  try{
+	  
 	  if(this.list == null){
 		  return false;
 	  }
@@ -61,10 +51,7 @@ class PreparePool {
       p => p.publicKey === prepare.publicKey
     );
     return exists;
-    }catch (err){
-        console.log(err);
-        return false;
-    }
+   
 	  
   }
 
