@@ -3,7 +3,7 @@ var request = require('request');
 const var_dump = require('var_dump')
 const SHA256 = require("crypto-js/sha256");
 
-var url = 'http://localhost:3002/blocks';
+var url = 'http://localhost:3000/blocks';
 
 request.get({
     url: url,
