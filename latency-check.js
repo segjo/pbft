@@ -1,9 +1,7 @@
 'use strict';
 var request = require('request');
-const var_dump = require('var_dump')
-const SHA256 = require("crypto-js/sha256");
 
-var url = 'http://192.168.1.200:3000/blocks';
+var url = 'http://localhost:3000/blocks';
 
 request.get({
     url: url,
@@ -12,7 +10,7 @@ request.get({
   }, (err, res, data) => {
     if (err) {
       console.log('Error:', err);
-    } else if (res.statusCode !== 200) {
+    } else if (res.statusCode !== 200) { 
       console.log('Status:', res.statusCode);
     } else {
       // data is already parsed as JSON:
