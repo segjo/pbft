@@ -41,19 +41,19 @@ function checkChain(blocks) {
 			  }
 		  }
 	    let berechneterhash=SHA256(JSON.stringify(`${timestamp}${lastHash}${dataString}`)).toString();
-	    console.log("Berechneter Hash:"+berechneterhash);
-	    console.log("LastHash:"+block.lastHash);
+	    //console.log("Berechneter Hash:"+berechneterhash);
+	    //console.log("LastHash:"+block.lastHash);
    
 	    
 	    if(berechneterhash!=blocks[nr].hash){
-	    	console.log("-----------------------------------------Modifikation erkannt (Block-Inhalt)---------------------------------------")
+	    	console.log("Modifikation erkannt (Block-Inhalt): Sequenz-Nr "+block.sequenceNo)
 	    }
 	    
 	  
 		    
 		    	if(prevHash!=lastHash){
-		    		console.log("Hash in vorherigen Block:"+prevHash);
-		    		console.log("-----------------------------------------Hash ungleich vorheriger Block---------------------------------------")
+		    		//console.log("Hash in vorherigen Block:"+prevHash);
+		    		console.log("Modifikation erkannt (Hash vorheriger Block ungleich): Sequenz-Nr "+block.sequenceNo)
 		    	}
 		    	
 		    	
