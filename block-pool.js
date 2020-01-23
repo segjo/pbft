@@ -43,14 +43,14 @@ class BlockPool {
     
     //------------------------Fügt eine nachträtliche Modifikation in Block 11, 14 und 19 ein--------------------------------
     if(this.list.length==20){
-    	this.modifyTransactionData(block.lastHash);
+    	//this.modifyTransactionData(block.lastHash);
     }
     if(this.list.length==15){
-    	this.modifyBlockData(block.lastHash);
+    	//this.modifyBlockData(block.lastHash);
     }
     
     if(this.list.length==12){
-    	this.modifyBlockDataAndHash(block.lastHash);
+    	//this.modifyBlockDataAndHash(block.lastHash);
     }
     //------------------------------------------------------------------------------------------------------------
     sequenceNo++;
